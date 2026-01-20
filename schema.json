@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deut.li Open Asset Format (.deut)",
+  "version": "1.0-beta",
+  "description": "A structured JSON-based container for visual art assets with provenance tracking.",
+  "type": "object",
+  "required": [
+    "meta",
+    "input_dna",
+    "fingerprint"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "version",
+        "userId",
+        "label"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^1\\.\\d+-beta$",
+          "description": "Schema version, e.g., 1.0-beta"
+        },
+        "label": {
+          "type": "string",
+          "description": "User-defined title for the asset"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Immutable Clerk ID or equivalent of the creator"
+        }
+      }
+    },
+    "input_dna": {
+      "type": "object",
+      "description": "Raw user inputs defining the prompt logic. Used for fingerprint generation.",
+      "required": [
+        "text_fields",
+        "selectors",
+        "technical"
+      ],
+      "properties": {
+        "text_fields": {
+          "type": "object",
+          "properties": {
+            "subject": { "type": "string" },
+            "action": { "type": "string" },
+            "environment": { "type": "string" },
+            "atmosphere": { "type": "string" }
+          }
+        },
+        "selectors": {
+          "type": "object",
+          "description": "System slugs (mediaCategory, lighting, etc.)"
+        },
+        "technical": {
+          "type": "object",
+          "properties": {
+            "aspectRatio": { "type": "string" },
+            "seed": { "type": ["integer", "string"] },
+            "avoid": { "type": "string" }
+          }
+        }
+      }
+    },
+    "llm_output": {
+      "type": "object",
+      "description": "Non-deterministic enriched data (excluded from fingerprint)",
+      "properties": {
+        "enriched_fields": { "type": "object" },
+        "outputprompt": { "type": "string" }
+      }
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hash calculated from normalized input_dna fields for integrity verification."
+    }
+  }
+}
