@@ -1,4 +1,6 @@
-# .deut Open Asset Format
+# .deut Open Standard
+
+![Latest Spec](https://img.shields.io/badge/spec-v1.1-success)
 
 **Status:** Beta 1.0
 **Maintainer:** Deut.li Engineering Team
@@ -42,10 +44,14 @@ Fields are joined into a single string using the pipe symbol `|` as a separator 
 Apply **SHA-256** to the concatenated string.
 The resulting hexadecimal string must match the `fingerprint` field in the file.
 
+## Specifications
+
+📖 **[View Full v1.1 Specification](spec/v1.1.md)**
+
 ## Validation
 Developers can validate `.deut` files using the `schema.json` provided in this repository.
 
 ```bash
 # Example validation using a generic JSON schema validator
-ajv validate -s schema.json -d my-art.deut
+ajv validate -s schemas/deut-v1.1.json -d my-art.deut
 ```
