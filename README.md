@@ -80,9 +80,9 @@ A client-side utility to extract metadata from existing A1111/Stable Diffusion P
 *   **Zero Uploads:** Runs entirely in the browser via File System Access API.
 *   **Batch Processing:** Converts thousands of images in minutes.
 
-https://github.com/deut-li/open-deut-format/assets/parser_demo.mp4
+![Batch Parser Demo](assets/demo.gif)
 
-👉 [Access the Migration Tool](https://deut.li)
+[**👉 Access the Migration Tool**](https://deut.li)
 
 ---
 
