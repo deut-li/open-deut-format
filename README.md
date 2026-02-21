@@ -84,6 +84,7 @@ A client-side utility to extract metadata from existing A1111/Stable Diffusion P
 
 [**👉 Access the Migration Tool**](https://deut.li)
 
+[![Open in Hugging Face Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/deutli/deutli)
 ---
 
 ## 🤝 Roadmap
