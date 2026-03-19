@@ -1,8 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Deut.li Open Asset Format (.deut)",
-  "version": "1.0-beta",
-  "description": "A structured JSON-based container for visual art assets with provenance tracking.",
+  "$id": "https://deut.li/schemas/v1.1/schema.json",
+  "title": "DEUTLI Open Asset Format v1.1",
+  "description": "Standard JSON specification for .deut files. Registered IANA media type: application/vnd.deut+json",
+  "$comment": "Content-Type: application/vnd.deut+json",
   "type": "object",
   "required": [
     "meta",
@@ -20,22 +21,19 @@
       "properties": {
         "version": {
           "type": "string",
-          "pattern": "^1\\.\\d+-beta$",
-          "description": "Schema version, e.g., 1.0-beta"
+          "pattern": "^1\\.1(-beta)?$",
+          "description": "Schema version, e.g., 1.1"
         },
         "label": {
-          "type": "string",
-          "description": "User-defined title for the asset"
+          "type": "string"
         },
         "userId": {
-          "type": "string",
-          "description": "Immutable Clerk ID or equivalent of the creator"
+          "type": "string"
         }
       }
     },
     "input_dna": {
       "type": "object",
-      "description": "Raw user inputs defining the prompt logic. Used for fingerprint generation.",
       "required": [
         "text_fields",
         "selectors",
@@ -51,10 +49,7 @@
             "atmosphere": { "type": "string" }
           }
         },
-        "selectors": {
-          "type": "object",
-          "description": "System slugs (mediaCategory, lighting, etc.)"
-        },
+        "selectors": { "type": "object" },
         "technical": {
           "type": "object",
           "properties": {
@@ -65,18 +60,15 @@
         }
       }
     },
-    "llm_output": {
+    "llm_output": { "type": "object" },
+    "vendor_data": {
       "type": "object",
-      "description": "Non-deterministic enriched data (excluded from fingerprint)",
-      "properties": {
-        "enriched_fields": { "type": "object" },
-        "outputprompt": { "type": "string" }
-      }
+      "description": "Platform-specific data (e.g., ComfyUI graphs)",
+      "additionalProperties": true
     },
     "fingerprint": {
       "type": "string",
-      "pattern": "^[a-f0-9]{64}$",
-      "description": "SHA-256 hash calculated from normalized input_dna fields for integrity verification."
+      "pattern": "^[a-f0-9]{64}$"
     }
   }
 }
