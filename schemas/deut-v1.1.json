@@ -1,33 +1,74 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": ".deut File Format v1.1",
+  "$id": "https://deut.li/schemas/v1.1/schema.json",
+  "title": "DEUTLI Open Asset Format v1.1",
+  "description": "Standard JSON specification for .deut files. Registered IANA media type: application/vnd.deut+json",
+  "$comment": "Content-Type: application/vnd.deut+json",
   "type": "object",
-  "required": ["meta", "input_dna", "outputs"],
+  "required": [
+    "meta",
+    "input_dna",
+    "fingerprint"
+  ],
   "properties": {
     "meta": {
       "type": "object",
-      "required": ["version", "userId", "fingerprint"],
+      "required": [
+        "version",
+        "userId",
+        "label"
+      ],
       "properties": {
-        "version": { "type": "string", "const": "1.1" },
-        "userId": { "type": "string" },
-        "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        "version": {
+          "type": "string",
+          "pattern": "^1\\.1(-beta)?$",
+          "description": "Schema version, e.g., 1.1"
+        },
+        "label": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
       }
     },
     "input_dna": {
       "type": "object",
-      "required": ["selectors"],
+      "required": [
+        "text_fields",
+        "selectors",
+        "technical"
+      ],
       "properties": {
-        "selectors": { "type": "object" }
+        "text_fields": {
+          "type": "object",
+          "properties": {
+            "subject": { "type": "string" },
+            "action": { "type": "string" },
+            "environment": { "type": "string" },
+            "atmosphere": { "type": "string" }
+          }
+        },
+        "selectors": { "type": "object" },
+        "technical": {
+          "type": "object",
+          "properties": {
+            "aspectRatio": { "type": "string" },
+            "seed": { "type": ["integer", "string"] },
+            "avoid": { "type": "string" }
+          }
+        }
       }
     },
-    "outputs": {
+    "llm_output": { "type": "object" },
+    "vendor_data": {
       "type": "object",
-      "required": ["midjourney", "natural", "raw"],
-      "properties": {
-        "midjourney": { "type": "string" },
-        "natural": { "type": "string" },
-        "raw": { "type": "string" }
-      }
+      "description": "Platform-specific data (e.g., ComfyUI graphs)",
+      "additionalProperties": true
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     }
   }
 }
