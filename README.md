@@ -3,6 +3,7 @@
 ![Status](https://img.shields.io/badge/Status-Beta_1.0-black?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 ![Standard](https://img.shields.io/badge/Standard-Open_Asset-blue?style=flat-square)
+![IANA](https://img.shields.io/badge/IANA-application%2Fvnd.deut%2Bjson-success?style=flat-square)
 
 > **"Don't type. Snap it in."** — The Digital Negative for Generative Arts.
 
@@ -20,6 +21,19 @@ It is a structured container designed not just to *store* prompts, but to *engin
 
 ---
 
+## 🌐 Official Standard (IANA)
+
+The `.deut` format is an officially registered media type with the [Internet Assigned Numbers Authority (IANA)](https://www.iana.org/assignments/media-types/media-types.xhtml). This guarantees global standard compliance and native recognition across systems.
+
+When building integrations, HTTP APIs, or configuring web servers, always use the official standard:
+
+* **MIME Type (Content-Type):** `application/vnd.deut+json`
+* **File Extension:** `.deut`
+
+This ensures your infrastructure treats `.deut` as a recognized structured container, preventing incorrect `application/octet-stream` fallbacks.
+
+---
+
 ## 💎 The Architecture
 
 Unlike simple text files, a `.deut` file separates the **Human Intent** from the **Machine Parameters**.
@@ -27,7 +41,7 @@ Unlike simple text files, a `.deut` file separates the **Human Intent** from the
 ### Core Principles
 1.  **Non-Destructive Editing:** Change the lighting or camera angle without rewriting the entire prompt logic. The format preserves the original user inputs separately from the LLM-compiled string.
 2.  **Provenance & Integrity:** A built-in SHA-256 fingerprint mechanism acts as a seal of authenticity, preventing silent tampering of assets.
-3.  **Platform Agnostic:** While designed for the *Deut.li* ecosystem, the schema is open. It creates a universal language between different models and tools.
+3.  **Platform Agnostic:** While designed for the *DEUTLI* ecosystem, the schema is open. It creates a universal language between different models and tools.
 
 ---
 
@@ -35,7 +49,7 @@ Unlike simple text files, a `.deut` file separates the **Human Intent** from the
 
 A `.deut` file is a rigid JSON object.
 
-```json
+~~~json
 {
   "meta": {
     "version": "1.0",
@@ -58,7 +72,7 @@ A `.deut` file is a rigid JSON object.
   },
   "fingerprint": "a1b2c3d4..." // Proof of Integrity
 }
-```
+~~~
 
 ### 🔐 Fingerprint Protocol (Security)
 To verify the integrity of a `.deut` file, the system reconstructs the hash from the `input_dna` fields. This ensures that the file you load creates exactly what the author intended.
@@ -77,22 +91,23 @@ We provide tools to help professionals migrate their legacy libraries into the n
 ### Local Batch Parser (Web)
 A client-side utility to extract metadata from existing A1111/Stable Diffusion PNG libraries and convert them into structured `.deut` sidecars.
 
-*   **Zero Uploads:** Runs entirely in the browser via File System Access API.
-*   **Batch Processing:** Converts thousands of images in minutes.
+* **Zero Uploads:** Runs entirely in the browser via File System Access API.
+* **Batch Processing:** Converts thousands of images in minutes.
 
 ![Batch Parser Demo](assets/demo.gif)
 
 [**👉 Access the Migration Tool**](https://deut.li)
 
 [![Open in Hugging Face Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/deutli/deutli)
+
 ---
 
 ## 🤝 Roadmap
 
-*   **v1.0 (Current):** Schema Definition & Migration Parsers.
-*   **v2.0:** Visual Editor Support (Node-based prompt engineering).
-*   **v3.0:** Enterprise Team Sync & Cloud Libraries.
+* **v1.0 (Current):** Schema Definition & Migration Parsers.
+* **v2.0:** Visual Editor Support (Node-based prompt engineering).
+* **v3.0:** Enterprise Team Sync & Cloud Libraries.
 
 ---
 
-**Maintainer:** Deut.li Engineering Team
+**Maintainer:** DEUTLI Engineering Team
