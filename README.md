@@ -1,6 +1,6 @@
 # .deut Open Asset Format
 
-![Status](https://img.shields.io/badge/Status-Beta_1.0-black?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Beta_1.1-black?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 ![Standard](https://img.shields.io/badge/Standard-Open_Asset-blue?style=flat-square)
 ![IANA](https://img.shields.io/badge/IANA-application%2Fvnd.deut%2Bjson-success?style=flat-square)
