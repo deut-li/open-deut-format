@@ -11,7 +11,7 @@
 
 ## 🏛 The Manifesto: Order from Chaos
 
-Professional generative workflow is currently broken. Designers are stuck in a loop of "prompt roulette"—tweaking keywords and losing track of iterations.
+Professional generative workflow is currently broken. Designers are stuck in a loop of "prompt roulette" – tweaking keywords and losing track of iterations.
 * **PNGs** are black boxes; metadata is lost on compression or conversion.
 * **Txt files** are unstructured and disjointed.
 * **Intent** is mixed with **Implementation**.
