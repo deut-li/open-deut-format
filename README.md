@@ -1,113 +1,97 @@
-# .deut Open Asset Format
+# 📄 DEUTLI Open Asset Format (.deut)
 
-![Status](https://img.shields.io/badge/Status-Beta_1.1-black?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
-![Standard](https://img.shields.io/badge/Standard-Open_Asset-blue?style=flat-square)
-![IANA](https://img.shields.io/badge/IANA-application%2Fvnd.deut%2Bjson-success?style=flat-square)
+> Don't type. Snap it in.
 
-> **"Don't type. Snap it in."** — The Digital Negative for Generative Arts.
+![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.1-FFFF00?style=flat-square&labelColor=050505&color=FFFF00)
+![IANA](https://img.shields.io/badge/IANA-application%2Fvnd.deut%2Bjson-FFFFFF?style=flat-square&labelColor=050505)
 
----
+## 1. The Digital Negative for Visual Arts
+The `.deut` file is an industry-standard, structured JSON container for generative art. It acts as a digital negative, preserving the original creative intent (`input_dna`) alongside AI-generated multi-dialect outputs. It does not hardcode parameters for specific engines in its core, ensuring absolute cross-platform compatibility.
 
-## 🏛 The Manifesto: Order from Chaos
-
-Professional generative workflow is currently broken. Designers are stuck in a loop of "prompt roulette" – tweaking keywords and losing track of iterations.
-* **PNGs** are black boxes; metadata is lost on compression or conversion.
-* **Txt files** are unstructured and disjointed.
-* **Intent** is mixed with **Implementation**.
-
-**We are establishing the .deut format as a new industry standard.**
-It is a structured container designed not just to *store* prompts, but to *engineer* them. It treats your prompts like blueprints, enabling version control, non-destructive editing, and enterprise-grade collaboration.
+**Official Media Type:** `application/vnd.deut+json`  
+**JSON Schema:** [https://deut.li/schemas/v1.1/schema.json](https://deut.li/schemas/v1.1/schema.json)
 
 ---
 
-## 🌐 Official Standard (IANA)
+## 2. Structure Overview
+The root object strictly follows this hierarchy:
 
-The `.deut` format is an officially registered media type with the [Internet Assigned Numbers Authority (IANA)](https://www.iana.org/assignments/media-types/media-types.xhtml). This guarantees global standard compliance and native recognition across systems.
-
-When building integrations, HTTP APIs, or configuring web servers, always use the official standard:
-
-* **MIME Type (Content-Type):** `application/vnd.deut+json`
-* **File Extension:** `.deut`
-
-This ensures your infrastructure treats `.deut` as a recognized structured container, preventing incorrect `application/octet-stream` fallbacks.
+1.  **meta**: Governance, versioning, and identification.
+2.  **input_dna**: The immutable visual direction (The "Seed"). Pure semantic intent, no engine-specific technical noise.
+3.  **llm_output**: Non-deterministic data compiled by the system (The "Fruit"). Includes standard dialects (`midjourney`, `natural`, `raw`).
+4.  **vendor_data**: (Optional) Extensibility layer for third-party engines.
+5.  **fingerprint**: Root-level SHA-256 integrity hash.
 
 ---
 
-## 💎 The Architecture
-
-Unlike simple text files, a `.deut` file separates the **Human Intent** from the **Machine Parameters**.
-
-### Core Principles
-1.  **Non-Destructive Editing:** Change the lighting or camera angle without rewriting the entire prompt logic. The format preserves the original user inputs separately from the LLM-compiled string.
-2.  **Provenance & Integrity:** A built-in SHA-256 fingerprint mechanism acts as a seal of authenticity, preventing silent tampering of assets.
-3.  **Platform Agnostic:** While designed for the *DEUTLI* ecosystem, the schema is open. It creates a universal language between different models and tools.
+## 3. Workflow & Security
+```mermaid
+sequenceDiagram
+    participant User as Creator
+    participant App as DEUTLI App/Node
+    User->>App: Define Intent (input_dna)
+    App->>App: 1. Normalize DNA<br/>2. Sign Fingerprint (SHA-256)
+    App->>App: 3. Compile LLM Prompts (llm_output)
+    App->>User: Export .deut file 🔓
+```
 
 ---
 
-## 🧬 File Structure (The DNA)
+## 4. File Structure (The DNA) v1.1
+A `.deut` file is a rigid JSON object. Here is a production example:
 
-A `.deut` file is a rigid JSON object.
-
-~~~json
+```json
 {
   "meta": {
-    "version": "1.0",
-    "created_at": "2023-10-27T10:00:00Z",
-    "author_hash": "..." 
+    "version": "1.1",
+    "label": "BETA-1A074CC5",
+    "userId": "guest_::1",
+    "created_at": "2026-03-14T16:15:42.395Z"
   },
   "input_dna": {
-    "description": "User's high-level concept",
-    "subject": "concrete monolith",
-    "action": "hovering",
-    "environment": "dense pine forest",
-    "lighting": "overcast dusk",
-    "composition": "rule of thirds"
+    "text_fields": {
+      "subject": "steam locomotive without wheels",
+      "action": "flying",
+      "context": "in the night sky",
+      "intent": "global crisis"
+    },
+    "selectors": {
+      "mediaCategory": "photo",
+      "mediaStyle": "cinematic",
+      "lighting": "hard",
+      "framing": "portrait",
+      "focus": "deep",
+      "film": "velvia50"
+    },
+    "technical": {
+      "aspectRatio": "16:9",
+      "seed": "2238052541",
+      "avoid": "cars, trees",
+      "reference_url": ""
+    }
   },
-  "system_params": {
-    "model_hash": "e6415c4892",
-    "sampler": "DPM++ 2M Karras",
-    "steps": 30,
-    "seed": 382985710478200
+  "llm_output": {
+    "midjourney": "/imagine prompt: A massive steam locomotive without wheels flying through a dark night sky, representing a global crisis, high-end cinematic production, harsh direct lighting, high contrast, sharp defined shadows, Fujifilm Velvia 50 slide film, vivid colors, deep blacks, 85mm lens, medium shot, subject dominance, f/16 aperture, deep depth of field --ar 16:9 --v 6.1 --stylize 250 --no cars, trees --seed 2238052541",
+    "natural": "A high-end cinematic photograph captures a wheel-less steam locomotive soaring through the vast night sky, its presence evoking the weight of a global crisis. The scene is shot on Fujifilm Velvia 50 slide film, resulting in vivid colors and deep, rich blacks. Harsh direct lighting creates high contrast and sharp, defined shadows across the metallic hull of the train. Using an 85mm lens at f/16, the entire scene from the locomotive to the distant stars is in sharp focus, providing a sense of immense scale and atmospheric consistency. The image excludes cars and trees.",
+    "raw": "steam locomotive, no wheels, flying, night sky, global crisis symbolism, photographic quality, optical fidelity, native resolution, uncompressed textures, authentic chromatic nuances, high-end cinematic production, anamorphic visual characteristics, tonal depth, atmospheric consistency, harsh direct lighting, high contrast, sharp defined shadows, 85mm lens, flattering perspective, medium shot, subject dominance, f/16 aperture, deep depth of field, Fujifilm Velvia 50, slide film, high saturation, vivid colors, deep blacks. Negative prompt: cars, trees"
   },
-  "fingerprint": "a1b2c3d4..." // Proof of Integrity
+  "fingerprint": "1a074cc5ca4bd134118c34b2cdd92f01c61b0a81a5cb0f45c557c9ac1c7876bb"
 }
-~~~
-
-### 🔐 Fingerprint Protocol (Security)
-To verify the integrity of a `.deut` file, the system reconstructs the hash from the `input_dna` fields. This ensures that the file you load creates exactly what the author intended.
-
-**Algorithm:**
-1.  **Normalize**: Lowercase and trim all text values.
-2.  **Concatenate**: Join fields via `|` separator in strict order (`userId | subject | action | ...`).
-3.  **Hash**: Apply SHA-256 to generate the immutable signature.
+```
 
 ---
 
-## 🛠 Utilities: Migration Tools
+## 5. Protocol Definitions
 
-We provide tools to help professionals migrate their legacy libraries into the new standard.
+### 5.1 Fingerprint Protocol
+The `fingerprint` is a **SHA-256 hash** of the `input_dna` object.
+* **Purpose:** To verify that the creative intent hasn't been tampered with.
+* **Calculation:** The `input_dna` object is canonicalized (keys sorted alphabetically) and hashed. 
+* **Note:** `llm_output` and `vendor_data` are excluded from the fingerprint to allow for post-processing and engine updates without breaking provenance.
 
-### Local Batch Parser (Web)
-A client-side utility to extract metadata from existing A1111/Stable Diffusion PNG libraries and convert them into structured `.deut` sidecars.
-
-* **Zero Uploads:** Runs entirely in the browser via File System Access API.
-* **Batch Processing:** Converts thousands of images in minutes.
-
-![Batch Parser Demo](assets/demo.gif)
-
-[**👉 Access the Migration Tool**](https://deut.li)
-
-[![Open in Hugging Face Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/deutli/deutli)
+### 5.2 Vendor Data (Extensibility)
+All engine-specific configurations **must** reside within the `vendor_data` block (if present). This is the official extension point for the industry, allowing tools to store internal states directly inside the `.deut` file without violating the clean semantic core of `input_dna`.
 
 ---
-
-## 🤝 Roadmap
-
-* **v1.0 (Current):** Schema Definition & Migration Parsers.
-* **v2.0:** Visual Editor Support (Node-based prompt engineering).
-* **v3.0:** Enterprise Team Sync & Cloud Libraries.
-
----
-
 **Maintainer:** DEUTLI Engineering Team
